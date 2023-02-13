@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
         uic.loadUi('main_window.ui', self)
         self.api_server = "http://static-maps.yandex.ru/1.x/"
         self.map_zoom = 10
-        self.delta = 0.1
+        self.delta = self.map_zoom / 100
         self.map_ll = [37.977751, 55.757718]
         self.map_l = 'map'
         self.refresh_map()
@@ -43,14 +43,18 @@ class MainWindow(QMainWindow):
         if event.key() == Qt.Key_PageUp and self.map_zoom < 17:
             self.map_zoom += 1
             self.refresh_map()
-        #if event.key() == Qt.Key_Left and self.map_ll[0] > 0:
-            #self.map_ll[0] -= self.delta
-        #if event.key() == Qt.Key_Right and self.map_ll[0] < 180:
-            #self.map_ll[0] += self.delta
-        #if event.key() == Qt.Key_Up and self.map_ll[1] < 180:
-            #self.map_ll[1] += self.delta
-        #if event.key() == Qt.Key_Down and self.map_ll[1] > 0:
-            #self.map_ll[1] -= self.delta
+        if event.key() == Qt.Key_Left and self.map_ll[0] > 0:
+            self.map_ll[0] -= self.delta
+            self.refresh_map()
+        if event.key() == Qt.Key_Right and self.map_ll[0] < 180:
+            self.map_ll[0] += self.delta
+            self.refresh_map()
+        if event.key() == Qt.Key_Up and self.map_ll[1] < 180:
+            self.map_ll[1] += self.delta
+            self.refresh_map()
+        if event.key() == Qt.Key_Down and self.map_ll[1] > 0:
+            self.map_ll[1] -= self.delta
+            self.refresh_map()
 
 
 
