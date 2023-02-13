@@ -17,6 +17,21 @@ class MainWindow(QMainWindow):
         self.map_ll = [37.977751, 55.757718]
         self.map_l = 'map'
         self.refresh_map()
+        self.pushButton.clicked.connect(self.set_hybrid)
+        self.pushButton_2.clicked.connect(self.set_satellite)
+        self.pushButton_3.clicked.connect(self.set_map)
+
+    def set_hybrid(self):
+        self.map_l = 'sat,skl'
+        self.refresh_map()
+
+    def set_satellite(self):
+        self.map_l ='sat'
+        self.refresh_map()
+
+    def set_map(self):
+        self.map_l ='map'
+        self.refresh_map()
 
     def refresh_map(self):
         map_params = {
@@ -43,16 +58,16 @@ class MainWindow(QMainWindow):
         if event.key() == Qt.Key_PageUp and self.map_zoom < 17:
             self.map_zoom += 1
             self.refresh_map()
-        if event.key() == Qt.Key_Left and self.map_ll[0] > 0:
+        if event.key() == Qt.Key_A and self.map_ll[0] > 0:
             self.map_ll[0] -= self.delta
             self.refresh_map()
-        if event.key() == Qt.Key_Right and self.map_ll[0] < 180:
+        if event.key() == Qt.Key_D and self.map_ll[0] < 180:
             self.map_ll[0] += self.delta
             self.refresh_map()
-        if event.key() == Qt.Key_Up and self.map_ll[1] < 180:
+        if event.key() == Qt.Key_W and self.map_ll[1] < 180:
             self.map_ll[1] += self.delta
             self.refresh_map()
-        if event.key() == Qt.Key_Down and self.map_ll[1] > 0:
+        if event.key() == Qt.Key_S and self.map_ll[1] > 0:
             self.map_ll[1] -= self.delta
             self.refresh_map()
 
